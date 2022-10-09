@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    private RighidBody2D _body;
+    private Rigidbody2D _body;
 
     void Start()
     {
-        _body = GetComponent<RighidBody2D>();
+        _body = GetComponent<Rigidbody2D>();
     }
 
     void Update()
