@@ -12,7 +12,7 @@ public class PastSpawner : MonoBehaviour
     [SerializeField] Past _firstPast;
     private List<Past> _pasts = new();
     
-    [SerializeField] float _indentToNewPast;
+    [SerializeField] float _indentXToNewPast;
     [SerializeField] int _maxSumPlatforms;
 
     private void Start()
@@ -22,7 +22,7 @@ public class PastSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (_player.position.x > _pasts[_pasts.Count - 1].GetEndPoint().position.x)
+        if (_player.position.x + _indentXToNewPast > _pasts[_pasts.Count - 1].GetEndPoint().position.x)
         {
             Debug.Log("Spawn");
             AddPast();
@@ -37,11 +37,12 @@ public class PastSpawner : MonoBehaviour
         Past pastComponent = newPast.GetComponent<Past>();
         newPast.transform.position = _pasts[^1].GetEndPoint().position 
             - new Vector3(pastComponent.GetBeginPoint().position.x - newPast.transform.position.x, 0);
+
         _pasts.Add(pastComponent);
         if(_pasts.Count > _maxSumPlatforms)
         {
-            Destroy(_pasts[0]);
-            _pasts.Remove(_pasts[0]);
+            Destroy(_pasts[0].gameObject);
+            _pasts.RemoveAt(0);
         }
 
         Debug.Log(_pasts);
