@@ -16,6 +16,8 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         _body = GetComponent<Rigidbody2D>();
+
+        PlayerInput.TapEvent.AddListener(Jump);
     }
 
     void Update()
@@ -23,9 +25,10 @@ public class PlayerMove : MonoBehaviour
         _body.velocity += new Vector2(_speed * Time.deltaTime, 0);
         if (_body.velocity.x > _maxSpeed)
             _body.velocity = new Vector2(_maxSpeed, _body.velocity.y);
+    }
 
-        
-        if (Input.GetMouseButtonDown(0))
-            _body.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+    private void Jump()
+    {
+        _body.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
     }
 }
