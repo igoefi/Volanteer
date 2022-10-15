@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -10,16 +6,20 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] float _speed;
     [SerializeField] float _maxSpeed;
-
     [SerializeField] float _jumpForce;
+
+    private bool _isGrounded;
 
     void Start()
     {
+        _isGrounded = true;
+
         _body = GetComponent<Rigidbody2D>();
 
         PlayerInput.TapEvent.AddListener(Jump);
-    }
+    } 
 
+    
     void Update()
     {
         _body.velocity += new Vector2(_speed * Time.deltaTime, 0);
@@ -29,6 +29,18 @@ public class PlayerMove : MonoBehaviour
 
     private void Jump()
     {
-        _body.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        if (_isGrounded)
+        {
+            _isGrounded = false;
+            _body.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Floor")
+        {
+            _isGrounded = true;
+        }
     }
 }
