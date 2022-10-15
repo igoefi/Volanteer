@@ -364,8 +364,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101951403}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.98, y: 4.57, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -13.98, y: 4.3529, z: 0}
+  m_LocalScale: {x: 1, y: 1.4342, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -385,7 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _maxSpeed: 20
-  _jumpForce: 7
+  _jumpForce: 10
 --- !u!50 &1101951407
 Rigidbody2D:
   serializedVersion: 4
@@ -416,7 +416,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1101951403}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 76f83ed06bb6a7f4f927af2c183d9662, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
