@@ -6,12 +6,14 @@ using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
 {
-    public static UnityEvent TapEvent { get; private set; } = new();
-    public static UnityEvent LeftSwipeEvent { get; private set; } = new();
-    public static UnityEvent DownSwipeEvent { get; private set; } = new();
+    public UnityEvent TapEvent { get; private set; } = new();
+    public UnityEvent LeftSwipeEvent { get; private set; } = new();
+    public UnityEvent DownSwipeEvent { get; private set; } = new();
 
     private Vector2 _firstTouchVector;
     private Vector2 _lastTouchVector;
+
+    private List<GameEvent> _events = new();
 
     [SerializeField] float lengthXSwipe;
     [SerializeField] float lengthYSwipe;
