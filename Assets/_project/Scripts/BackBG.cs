@@ -7,8 +7,16 @@ public class BackBG : MonoBehaviour
     [Min(0)]
     [SerializeField] float _speed;
 
-    private void Update()
+    private Rigidbody2D _body;
+
+    private void Start()
     {
-        transform.position -= new Vector3(_speed * Time.deltaTime, 0);
+        _body = GetComponent<Rigidbody2D>();
+    }
+
+    private void FixedUpdate()
+    {
+        _body.velocity = new Vector2(-_speed * Time.deltaTime, 0); 
+        //transform.position -= new Vector3(_speed * Time.deltaTime, 0);
     }
 }
