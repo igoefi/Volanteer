@@ -30,7 +30,7 @@ public class PlayerMove : MonoBehaviour
     
     void FixedUpdate()
     {
-        _body.velocity += new Vector2(_speed * Time.deltaTime, 0);
+        _body.velocity += new Vector2(_speed, 0);
         if (_body.velocity.x > _maxSpeed)
             _body.velocity = new Vector2(_maxSpeed, _body.velocity.y);
     }
@@ -49,6 +49,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Fall()
     {
+        if (_lastFloor == null) return;
         if (_lastFloor.layer != _wallUpLayer) return;
         Debug.Log(true);
         _isGrounded = false;
@@ -57,6 +58,23 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Collider2D hit = ReturnUnderHit();
+        if (hit == null) return;
+        if (hit.gameObject.tag != "Floor") return;
+
+        _isGrounded = true;
+        _lastFloor = collision.gameObject;
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag != "Floor") return;
+
+        _isGrounded = false;
+        _lastFloor = null;
+    }
+
+    private Collider2D ReturnUnderHit()
+    {
         Vector3 max = _collider.bounds.max;
         Vector3 min = _collider.bounds.min;
 
@@ -64,12 +82,7 @@ public class PlayerMove : MonoBehaviour
         Vector2 corner2 = new Vector2(min.x, min.y - .1f);
 
 
-        Collider2D hit = Physics2D.OverlapArea(corner1, corner2);
-        if (hit == null) return;
-        if (hit.gameObject.tag != "Floor") return;
-
-        _isGrounded = true;
-        _lastFloor = collision.gameObject;
+        return Physics2D.OverlapArea(corner1, corner2);
     }
     private IEnumerator BeUnUse()
     {

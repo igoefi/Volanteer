@@ -16,7 +16,7 @@ public class BackBG : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _body.velocity = new Vector2(-_speed * Time.deltaTime, 0); 
+        _body.velocity = new Vector2(-_speed, 0); 
         //transform.position -= new Vector3(_speed * Time.deltaTime, 0);
     }
 }
