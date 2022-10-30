@@ -20,6 +20,8 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
+        if (!GameStateController.IsPlaying) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             _firstTouchVector = Input.mousePosition;

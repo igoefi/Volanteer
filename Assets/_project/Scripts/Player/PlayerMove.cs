@@ -30,6 +30,12 @@ public class PlayerMove : MonoBehaviour
     
     void FixedUpdate()
     {
+        if (!GameStateController.IsPlaying)
+        {
+            _body.velocity = Vector2.zero;
+            return;
+        }
+
         _body.velocity += new Vector2(_speed, 0);
         if (_body.velocity.x > _maxSpeed)
             _body.velocity = new Vector2(_maxSpeed, _body.velocity.y);
@@ -68,6 +74,7 @@ public class PlayerMove : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.tag != "Floor") return;
+        if (collision.gameObject != _lastFloor) return;
 
         _isGrounded = false;
         _lastFloor = null;
